@@ -14,11 +14,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "build:css": "postcss src/input.css -o src/output.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "npx tailwindcss -i ./src/css/tailwind.css -o ./public/build/tailwind.css --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -38,10 +38,11 @@
       "last 1 safari version"
     ]
   },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
   "devDependencies": {
-    "postcss": "^8.x.x",
-    "postcss-cli": "^9.x.x",
-    "tailwindcss": "^3.x.x",
-    "autoprefixer": "^10.x.x"
-  }
+    "tailwindcss": "^3.4.9"
+  },
+  "author": "",
+  "license": "ISC"
 }
