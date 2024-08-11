@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Footer from "./footer";
+import HeaderComponent from "./HeaderComponent";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,7 +21,6 @@ const Login = () => {
       );
 
       if (response.data.success) {
-        setIsLoggedIn(true);
         setError("");
       } else {
         setError("Invalid username or password");
@@ -34,6 +33,7 @@ const Login = () => {
 
   return (
     <>
+      <HeaderComponent />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div>
           <h2 className="bg-red-700 p-1 rounded-t-lg mt-10 text-center text-lg leading-9 tracking-tight text-white sm:mx-auto sm:w-full sm:max-w-xs">
@@ -61,7 +61,7 @@ const Login = () => {
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   placeholder="نام کاربری"
-                  className="block w-full rounded-md text-right pr-3 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md text-right pr-3 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -72,7 +72,7 @@ const Login = () => {
               ></label>
               <div className="mt-2">
                 <input
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 text-right pr-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 text-right pr-3 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   id="password"
                   name="password"
                   type="password"
@@ -82,6 +82,16 @@ const Login = () => {
                   placeholder="رمز عبور"
                 />
               </div>
+            </div>
+            <div className="dir-rtl">
+              <label
+                htmlFor="dropdown"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              ></label>
+              <select className="block w-full rounded-md border-0 py-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 text-right pr-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <option value="">رمز ایستا</option>
+                <option value="">رمز یکبار مصرف</option>
+              </select>
             </div>
             <div>
               <button
