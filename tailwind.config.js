@@ -1,6 +1,8 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
-  content: ["./my-react-app/src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}", // مسیرهایی که Tailwind CSS باید آن‌ها را اسکن کند
+  ],
   theme: {
     extend: {},
   },
