@@ -104,6 +104,11 @@ const Login = () => {
             {error && <p>{error}</p>}
           </form>
         </div>
+        <div className="flex justify-center text-sm text-blue-600">
+          <a href="#">ثبت نام در اینترنت بانک </a>
+          <span>|</span>
+          <a href="#">رمز عبور خود را فراموش کرده ام.</a>
+        </div>
       </div>
       <Footer />
     </>
