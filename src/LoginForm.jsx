@@ -2,39 +2,45 @@ import React, { useState } from "react";
 import axios from "axios";
 import Footer from "./footer";
 import HeaderComponent from "./HeaderComponent";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [IsLoggedIn, setIsLoggedIn] = useState(false);
+  const [RecaptchaValue, setRecaptchaValue] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setError("");
+    if (!RecaptchaValue) {
+      setError("Please complete the ReCAPTCHA.");
+      return;
+    }
     try {
       const response = await axios.post(
         "https://7257ab76-c596-478b-9f9d-5d639b0e7dd9.mock.pstmn.io/login",
-        {
-          username,
-          password,
-        }
+        { username, password }
       );
 
-      if (response.data.success) {
-        setError("");
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        navigate("/success");
       } else {
-        setError("Invalid username or password");
+        setError("Login failed");
       }
     } catch (error) {
-      setError("An error occurred while trying to log in");
-      console.error(error);
+      setError("Invalid username or password");
     }
   };
 
   return (
     <>
       <HeaderComponent />
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8 xl:py-12 sm:py-0">
         <div>
           <h2 className="bg-red-700 p-1 rounded-t-lg mt-10 text-center text-lg leading-9 tracking-tight text-white sm:mx-auto sm:w-full sm:max-w-xs">
             سامانه اینترنت بانک شهر
@@ -93,10 +99,17 @@ const Login = () => {
                 <option value="">رمز یکبار مصرف</option>
               </select>
             </div>
+            <div className="hidden sm:block" required>
+              <ReCAPTCHA
+                sitekey="6LfhaCUqAAAAAPMM8H-Rgf7-e9aO8zdF_j1z2mgX"
+                onChange={(val) => setRecaptchaValue(val)}
+              />
+            </div>
             <div>
               <button
-                className="flex justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${!RecaptchaValue ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}"
                 type="submit"
+                disabled={!RecaptchaValue}
               >
                 ورود
               </button>
@@ -104,10 +117,16 @@ const Login = () => {
             {error && <p>{error}</p>}
           </form>
         </div>
-        <div className="flex justify-center text-sm text-blue-600">
-          <a href="#">ثبت نام در اینترنت بانک </a>
+        <div className="flex justify-center text-xs text-blue-600 mt-5">
+          <Link to="/signup" className="ml-2 cursor-pointer">
+            <i className="fas fa-sign-in-alt ml-2 text-red-700"></i>
+            ثبت نام در اینترنت بانک{" "}
+          </Link>
           <span>|</span>
-          <a href="#">رمز عبور خود را فراموش کرده ام.</a>
+          <Link to="/signup" className="mr-2 cursor-pointer">
+            <i className="fas fa-key  ml-2 text-red-700"></i>
+            رمز عبور خود را فراموش کرده ام.
+          </Link>
         </div>
       </div>
       <Footer />
