@@ -9,7 +9,7 @@ moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 function App() {
   return (
-    <div className="appForm pt-10">
+    <div className="appForm">
       <Routes>
         <Route path="" element={<LoginForm />} />
         <Route path="/success" element={<Success />} />

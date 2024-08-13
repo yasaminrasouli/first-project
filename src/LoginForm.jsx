@@ -118,12 +118,20 @@ const Login = () => {
           </form>
         </div>
         <div className="flex justify-center text-xs text-blue-600 mt-5">
-          <Link to="/signup" className="ml-2 cursor-pointer">
+          <Link
+            to="/signup"
+            state={{ message: "ثبت نام در اینترنت بانک" }}
+            className="ml-2 cursor-pointer"
+          >
             <i className="fas fa-sign-in-alt ml-2 text-red-700"></i>
-            ثبت نام در اینترنت بانک{" "}
+            ثبت نام در اینترنت بانک
           </Link>
           <span>|</span>
-          <Link to="/signup" className="mr-2 cursor-pointer">
+          <Link
+            to="/signup"
+            state={{ message: "رمز عبور خود را فراموش کرده ام." }}
+            className="mr-2 cursor-pointer"
+          >
             <i className="fas fa-key  ml-2 text-red-700"></i>
             رمز عبور خود را فراموش کرده ام.
           </Link>
